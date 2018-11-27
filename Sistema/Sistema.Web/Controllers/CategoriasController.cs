@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema.Datos;
 using Sistema.Entidades.Almacen;
+using Sistema.Web.Models;
 
 namespace Sistema.Web.Controllers
 {
@@ -21,22 +21,25 @@ namespace Sistema.Web.Controllers
             _context = context;
         }
 
-        // GET: api/Categorias
-        [HttpGet]
-        public IEnumerable<Categoria> GetCategorias()
+        // GET: api/Categorias/Listar
+        [HttpGet("[action]")]
+        public async Task <IEnumerable<CategoriaViewModel>> Listar()
         {
-            return _context.Categorias;
+            var categoria = await _context.Categorias.ToListAsync();
+
+            return categoria.Select(c => new CategoriaViewModel
+            {
+                idcategoria = c.idcategoria,
+                nombre = c.nombre,
+                descripcion = c.descripcion,
+                condicion = c.condicion
+            });
         }
 
         // GET: api/Categorias/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategoria([FromRoute] int id)
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> Mostrar([FromRoute] int id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var categoria = await _context.Categorias.FindAsync(id);
 
             if (categoria == null)
@@ -44,7 +47,12 @@ namespace Sistema.Web.Controllers
                 return NotFound();
             }
 
-            return Ok(categoria);
+            return Ok(new CategoriaViewModel {
+                idcategoria= categoria.idcategoria,
+                nombre= categoria.nombre,
+                descripcion= categoria.descripcion,
+                condicion= categoria.condicion
+            });
         }
 
         // PUT: api/Categorias/5
