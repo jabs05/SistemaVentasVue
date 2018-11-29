@@ -17,6 +17,181 @@
             </v-list-tile-title>
           </v-list-tile>
         </template>
+        <template>
+          <v-list-group>
+            <v-list-tile slot="activator">
+              <v-list-tile-action>
+              <v-icon>store</v-icon>
+            </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Almacén
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: 'categorias'}">
+              <v-list-tile-action>
+                <v-icon>category</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Categorías
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Artículos
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+          </v-list-group>
+        </template>
+        <template>
+          <v-list-group>
+            <v-list-tile slot="activator">
+                <v-list-tile-action>
+              <v-icon>shopping_cart</v-icon>
+            </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Compras
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>attach_money</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Ingresos
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>airport_shuttle</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Proveedores
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+          </v-list-group>
+        </template>
+        <template>
+          <v-list-group>
+            <v-list-tile slot="activator">
+                <v-list-tile-action>
+              <v-icon>beenhere</v-icon>
+            </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Ventas
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Ventas
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>face</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Clientes
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+          </v-list-group>
+        </template>
+        <template>
+          <v-list-group>
+            <v-list-tile slot="activator">
+                <v-list-tile-action>
+              <v-icon>fingerprint</v-icon>
+            </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Accesos
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Roles
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>people</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Usuarios
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+          </v-list-group>
+        </template>
+        <template>
+          <v-list-group>
+            <v-list-tile slot="activator">
+                <v-list-tile-action>
+              <v-icon>search</v-icon>
+            </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Consultas
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Consultas compras
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile :to="{ name: ''}">
+              <v-list-tile-action>
+                <v-icon>table_chart</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>
+                  Consultas ventas
+                </v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+          </v-list-group>
+        </template>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -28,7 +203,7 @@
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <span class="hidden-sm-and-down">Sistema</span>
+        <span class="hidden-sm-and-down">JBS Sistema</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
@@ -47,7 +222,7 @@
         <v-flex text-xs-center>
           <v-card flat tile color="primary" class="white--text">
             <v-card-text class="white--text pt-0">
-              Jabs05.1991@gmail.com &copy;2018
+              IncanatoIT &copy;2018
             </v-card-text>
           </v-card>
         </v-flex>
