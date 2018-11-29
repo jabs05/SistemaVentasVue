@@ -587,4 +587,3 @@ ASALocalRun/
 .localhistory/
 
 # End of https://www.gitignore.io/api/node,vuejs,angular,aspnetcore,visualstudio,visualstudiocode
-Sistema/Sistema\.Web/appsettings\.json
