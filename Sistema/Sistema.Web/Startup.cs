@@ -27,7 +27,7 @@ namespace Sistema.Web
             services.AddCors(options =>
             {
                 options.AddPolicy("Todos",
-                    builder => builder.WithOrigins("*").WithHeaders("*").WithMethods(""));
+                    builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("*"));
             });
         }
 
