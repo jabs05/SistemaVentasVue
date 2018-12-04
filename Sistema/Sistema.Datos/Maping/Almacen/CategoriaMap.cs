@@ -6,11 +6,6 @@ namespace Sistema.Datos.Maping.Almacen
 {
     class CategoriaMap : IEntityTypeConfiguration<Categoria>
     {
-        public void Configuere (EntityTypeBuilder<Categoria> builder)
-        {
-
-        }
-
         public void Configure(EntityTypeBuilder<Categoria> builder)
         {
             builder.ToTable("categoria")

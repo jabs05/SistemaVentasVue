@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Sistema.Datos;
 using Sistema.Entidades.Almacen;
 using Sistema.Web.Models;
+using Sistema.Web.Models.Categoria;
 
 namespace Sistema.Web.Controllers
 {
@@ -33,6 +34,19 @@ namespace Sistema.Web.Controllers
                 nombre = c.nombre,
                 descripcion = c.descripcion,
                 condicion = c.condicion
+            });
+        }
+
+        // GET: api/Categorias/Listar
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<SelectViewModel>> Select()
+        {
+            var categoria = await _context.Categorias.Where(c => c.condicion==true).ToListAsync();
+
+            return categoria.Select(c => new SelectViewModel
+            {
+                idcategoria = c.idcategoria,
+                nombre = c.nombre,
             });
         }
 
