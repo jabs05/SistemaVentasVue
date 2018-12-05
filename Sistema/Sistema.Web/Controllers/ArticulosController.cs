@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sistema.Datos;
 using Sistema.Entidades.Almacen;
-using Sistema.Web.Models.Articulo;
+using Sistema.Web.Models.Almacen.Articulo;
 
 namespace Sistema.Web.Controllers
 {
@@ -23,31 +24,32 @@ namespace Sistema.Web.Controllers
 
         // GET: api/Articulos/Listar
         [HttpGet("[action]")]
-        public async Task <IEnumerable<ArticuloViewModel>> Listar()
+        public async Task<IEnumerable<ArticuloViewModel>> Listar()
         {
-            //se agrega la categoria en el include porque hay un forening key de referencia con la tabla categoria.
             var articulo = await _context.Articulos.Include(a => a.categoria).ToListAsync();
 
-            return articulo.Select(c => new ArticuloViewModel
+            return articulo.Select(a => new ArticuloViewModel
             {
-                idarticulo = c.idarticulo,
-                idcategoria = c.idcategoria,
-                categoria = c.categoria.nombre,
-                codigo = c.codigo,
-                nombre = c.nombre,
-                precio_venta = c.precio_venta,
-                stock= c.stock,
-                descripcion= c.descripcion,
-                condicion= c.condicion
+                idarticulo= a.idarticulo,
+                idcategoria = a.idcategoria,
+                categoria=a.categoria.nombre,
+                codigo=a.codigo,
+                nombre = a.nombre,
+                stock=a.stock,
+                precio_venta=a.precio_venta,
+                descripcion = a.descripcion,
+                condicion = a.condicion
             });
+
         }
 
         // GET: api/Articulos/Mostrar/1
         [HttpGet("[action]/{id}")]
         public async Task<IActionResult> Mostrar([FromRoute] int id)
         {
-            var articulo = await _context.Articulos.Include(a => a.categoria).
-                SingleOrDefaultAsync(a => a.idarticulo==id);
+
+            var articulo = await _context.Articulos.Include(a=>a.categoria).
+                SingleOrDefaultAsync(a=>a.idarticulo==id);
 
             if (articulo == null)
             {
@@ -57,13 +59,13 @@ namespace Sistema.Web.Controllers
             return Ok(new ArticuloViewModel
             {
                 idarticulo = articulo.idarticulo,
-                idcategoria = articulo.idcategoria,
-                categoria = articulo.categoria.nombre,
-                codigo = articulo.codigo,
+                idcategoria=articulo.idcategoria,
+                categoria=articulo.categoria.nombre,
+                codigo=articulo.codigo,
                 nombre = articulo.nombre,
-                precio_venta = articulo.precio_venta,
-                stock = articulo.stock,
                 descripcion = articulo.descripcion,
+                stock = articulo.stock,
+                precio_venta = articulo.precio_venta,
                 condicion = articulo.condicion
             });
         }
@@ -82,7 +84,7 @@ namespace Sistema.Web.Controllers
                 return BadRequest();
             }
 
-            var articulo = await _context.Articulos.FirstOrDefaultAsync(c => c.idarticulo == model.idarticulo);
+            var articulo = await _context.Articulos.FirstOrDefaultAsync(a => a.idarticulo == model.idarticulo);
 
             if (articulo == null)
             {
@@ -102,12 +104,14 @@ namespace Sistema.Web.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
+                // Guardar Excepción
                 return BadRequest();
             }
 
             return Ok();
         }
 
+        // POST: api/Articulos/Crear
         [HttpPost("[action]")]
         public async Task<IActionResult> Crear([FromBody] CrearViewModel model)
         {
@@ -115,18 +119,19 @@ namespace Sistema.Web.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             Articulo articulo = new Articulo
             {
                 idcategoria = model.idcategoria,
                 codigo = model.codigo,
                 nombre = model.nombre,
-                precio_venta= model.precio_venta,
+                precio_venta = model.precio_venta,
                 stock = model.stock,
                 descripcion = model.descripcion,
                 condicion = true
             };
-            _context.Articulos.Add(articulo);
 
+            _context.Articulos.Add(articulo);
             try
             {
                 await _context.SaveChangesAsync();
@@ -139,16 +144,17 @@ namespace Sistema.Web.Controllers
             return Ok();
         }
 
-        // Put: api/Categorias/Desactivar/1
+        // PUT: api/Articulos/Desactivar/1
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Desactivar([FromRoute] int id)
         {
+
             if (id <= 0)
             {
                 return BadRequest();
             }
 
-            var articulo = await _context.Articulos.FirstOrDefaultAsync(c => c.idarticulo == id);
+            var articulo = await _context.Articulos.FirstOrDefaultAsync(a => a.idarticulo == id);
 
             if (articulo == null)
             {
@@ -163,22 +169,24 @@ namespace Sistema.Web.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
+                // Guardar Excepción
                 return BadRequest();
             }
 
             return Ok();
         }
 
-        // Put: api/Categorias/Activar/1
+        // PUT: api/Articulos/Activar/1
         [HttpPut("[action]/{id}")]
         public async Task<IActionResult> Activar([FromRoute] int id)
         {
+
             if (id <= 0)
             {
                 return BadRequest();
             }
 
-            var articulo = await _context.Articulos.FirstOrDefaultAsync(c => c.idarticulo == id);
+            var articulo = await _context.Articulos.FirstOrDefaultAsync(a => a.idarticulo == id);
 
             if (articulo == null)
             {
@@ -193,6 +201,7 @@ namespace Sistema.Web.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
+                // Guardar Excepción
                 return BadRequest();
             }
 
@@ -200,5 +209,9 @@ namespace Sistema.Web.Controllers
         }
 
 
+        private bool ArticuloExists(int id)
+        {
+            return _context.Articulos.Any(e => e.idarticulo == id);
+        }
     }
 }

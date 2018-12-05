@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sistema.Web.Models
+namespace Sistema.Web.Models.Usuarios.Rol
 {
-    public class CategoriaViewModel
+    public class RolViewModel
     {
-        public int idcategoria { get; set; }
+        public int idrol { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public bool condicion { get; set; }

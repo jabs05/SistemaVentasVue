@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Sistema.Datos;
 
 namespace Sistema.Web
@@ -22,13 +29,13 @@ namespace Sistema.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<DbContextSistema>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
+                options.UseSqlServer(Configuration.GetConnectionString("Conexion")));
 
-            services.AddCors(options =>
-            {
+            services.AddCors(options => {
                 options.AddPolicy("Todos",
-                    builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("*"));
+                builder => builder.WithOrigins("*").WithHeaders("*").WithMethods("*"));
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +49,6 @@ namespace Sistema.Web
             {
                 app.UseHsts();
             }
-
             app.UseCors("Todos");
             app.UseHttpsRedirection();
             app.UseMvc();
